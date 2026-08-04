@@ -22,9 +22,10 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-                    def dockerCmd = 'docker run -d -p 3000:3080 beccatecha/demo-app:nre-1.1'
+                    def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
                     sshagent(['ec2-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.184.87.157 ${dockerCmd}"
+                        sh "scp docker-compose.yaml ec2-user@54.184.87.157:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.184.87.157 ${dockerComposeCmd}"
                     }
                 }
             }

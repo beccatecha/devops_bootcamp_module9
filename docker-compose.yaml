@@ -1,0 +1,12 @@
+version: '5.4'
+services:
+  java-maven-app:
+    image: beccatecha/demo-app:jma-1.0
+    ports:
+      - 8080:8080
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=my-pwd
